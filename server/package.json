@@ -1,0 +1,29 @@
+{
+    "name": "wishlist",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "client": "cd client && npm start",
+        "server": "nodemon index.js",
+        "dev": "concurrently --kill-others-on-fail \"npm server\" \"npm client\""
+    },
+    "author": "tiago correia",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^0.17.1",
+        "cors": "^2.8.4",
+        "dotenv": "^4.0.0",
+        "express": "^4.16.2",
+        "moment": "^2.20.1",
+        "use-strict": "^1.0.1"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.0.0-beta.38",
+        "@babel/plugin-transform-async-to-generator": "^7.0.0-beta.38",
+        "@babel/preset-env": "^7.0.0-beta.38",
+        "@babel/register": "^7.0.0-beta.38",
+        "concurrently": "^3.5.1",
+        "nodemon": "^1.14.11"
+    }
+}
