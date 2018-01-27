@@ -1,10 +1,25 @@
 /////////////////////////////////////////////////////////
--------------DEFAULT ERRORS ----------------
+-------------GENERAL ERRORS ----------------
 
 500 - unexpected-error
+401 - not-logged
 
 /////////////////////////////////////////////////////////
 -------------IDGB API ----------------
 
 409 - not-found
 409 - all-games-listed
+
+
+/////////////////////////////////////////////////////////
+-------------USER ROUTE ----------------
+//remove game
+409 - game-not-found
+
+//add game
+409 - game-already-owned
+
+//register-login
+400 - invalid-email
+409 - email-exists
+401 - login-failed

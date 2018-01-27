@@ -19,7 +19,6 @@ router.get("", (req, res) => {
             }
         )
         .then(response => {
-            console.log(response.data);
             if (response.data.length === 0 && offset > 0)
                 return res.error(409, "all-games-listed");
             if (response.data.length === 0) return res.error(409, "not-found");
