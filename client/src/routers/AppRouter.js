@@ -3,13 +3,13 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Dashboard from "../components/Dashboard";
 import Header from "../components/Header";
 import WishList from "../components/WishList";
-
+import Login from "../components/Login";
+//header missing
 const AppRouter = () => (
     <BrowserRouter>
         <div>
-            <Header />
             <Switch>
-                <Route path="/" component={Dashboard} exact={true} />
+                <Route path="/" component={Login} exact={true} />
                 <Route path="/wishlist" component={WishList} exact={true} />
             </Switch>
         </div>
