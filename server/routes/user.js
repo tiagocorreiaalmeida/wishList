@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import validator from "validator";
 import passport from "passport";
 
-import mongoose from "../config/mongoose";
 import User from "../models/user";
 import auth from "../utils/auth";
 
