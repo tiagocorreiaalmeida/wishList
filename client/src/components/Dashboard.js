@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import GamesList from "./GamesList";
 import { setSearch } from "../actions/currentSearch";
 
+//change component state to redux only
+
 export class Dashboard extends React.Component {
     state = {
         search: "",
@@ -20,7 +22,6 @@ export class Dashboard extends React.Component {
         this.setState(() => state);
     }
     componentDidUpdate() {
-        //error:adding to wishlist updates the state on the action and on the component stoping it from changing
         this.props.dispatch(setSearch(this.state));
     }
 

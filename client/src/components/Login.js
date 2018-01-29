@@ -1,9 +1,11 @@
 import React from "react";
 import validator from "validator";
 import axios from "axios";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
+import { connect } from "react-redux";
+import { startLogin } from "../actions/auth";
 
-export default class Login extends React.Component {
+class Login extends React.Component {
     state = {
         login: true,
         email: "",
@@ -14,30 +16,79 @@ export default class Login extends React.Component {
     };
 
     encryptIt = value => {
-        let salt = bcrypt.genSaltSync(10);
+        let salt = process.env.REACT_APP_SALT;
         return bcrypt.hashSync(value, salt);
     };
 
     onSubmit = e => {
         e.preventDefault();
+
+        let error;
+        this.setState(() => ({ error: "", successMessage: "" }));
         if (!this.state.email || !this.state.password) {
-            this.setState(() => ({ error: "Fill all the inputs" }));
+            error = "Fill all the inputs before submit";
         } else if (!validator.isEmail(this.state.email)) {
-            this.setState(() => ({ error: "Invalid email" }));
+            error = "Insert a valid email";
         } else if (this.state.password.length < 4) {
-            this.setState(() => ({
-                error: "The minimum password length is 4 characters"
-            }));
+            error = "The minimum password length is 4 characters";
         }
+        if (error) return this.setState(() => ({ error }));
+
         if (this.state.login) {
-            //login request
+            axios
+                .post("/api/user/login", {
+                    email: this.state.email,
+                    password: this.encryptIt(this.state.password)
+                })
+                .then(res => {
+                    this.props.dispatch(startLogin(res.data));
+                })
+                .catch(e => {
+                    let error;
+                    switch (e.response.data.error) {
+                        case "login-failed":
+                            error =
+                                "Login failed, please verify your credentials!";
+                        default:
+                            error =
+                                "Something went wrong please refresh the page and try again!";
+                    }
+                    this.setState(() => ({ error }));
+                });
         } else {
             if (this.state.password !== this.state.repeatedPassword) {
                 this.setState(() => ({
-                    error: "Passwords don't match"
+                    error: "The passwords don't match!"
                 }));
             } else {
-                //register request
+                axios
+                    .post("/api/user/register", {
+                        email: this.state.email,
+                        password: this.encryptIt(this.state.password)
+                    })
+                    .then(res => {
+                        this.setState(() => ({
+                            email: "",
+                            password: "",
+                            repeatedPassword: "",
+                            error: "",
+                            successMessage: "Your account has been created!"
+                        }));
+                    })
+                    .catch(e => {
+                        let error;
+                        switch (e.response.data.error) {
+                            case "invalid-email":
+                                error = "Insert a valid email!";
+                            case "email-exists":
+                                error =
+                                    "The email you filled in is allready in use!";
+                            default:
+                                error =
+                                    "Something went wrong please refresh the page and try again!";
+                        }
+                        this.setState(() => ({ error }));
+                    });
             }
         }
     };
@@ -48,7 +99,8 @@ export default class Login extends React.Component {
             email: "",
             password: "",
             repeatedPassword: "",
-            error: ""
+            error: "",
+            successMessage: ""
         }));
     };
 
@@ -58,7 +110,8 @@ export default class Login extends React.Component {
             email: "",
             password: "",
             repeatedPassword: "",
-            error: ""
+            error: "",
+            successMessage: ""
         }));
     };
 
@@ -153,7 +206,18 @@ export default class Login extends React.Component {
                                 />
                             </div>
                         )}
-                        {this.state.error && <p>{this.state.error}</p>}
+                        {this.state.error && (
+                            <p>
+                                <i className="ion-android-alert" />{" "}
+                                {this.state.error}
+                            </p>
+                        )}
+                        {this.state.successMessage && (
+                            <p>
+                                <i className="ion-checkmark-circled" />{" "}
+                                {this.state.successMessage}
+                            </p>
+                        )}
                         <button className="login__button">
                             <i className="ion-paper-airplane login__button__icon" />Submit
                         </button>
@@ -163,3 +227,5 @@ export default class Login extends React.Component {
         );
     }
 }
+
+export default connect()(Login);
