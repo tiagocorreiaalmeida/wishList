@@ -2,16 +2,16 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import logo from "../images/logo.png";
-import { logout } from "../actions/auth";
+import { startLogout } from "../actions/auth";
 
 class Header extends React.Component {
-    onClick = () => this.props.dispatch(logout());
+    onClick = () => this.props.dispatch(startLogout());
     render() {
         return (
             <header>
                 <div className="navigation">
                     <div className="navigation-container wrapper">
-                        <Link to="/" className="navigation__logo">
+                        <Link to="/dashboard" className="navigation__logo">
                             <img
                                 src={logo}
                                 className="navigation__logo__img"
@@ -24,7 +24,7 @@ class Header extends React.Component {
                                     activeClassName="navigation__link--active"
                                     className="navigation__link"
                                     exact={true}
-                                    to="/"
+                                    to="/dashboard"
                                 >
                                     Home
                                 </NavLink>

@@ -49,6 +49,7 @@ class Login extends React.Component {
                         case "login-failed":
                             error =
                                 "Login failed, please verify your credentials!";
+                            break;
                         default:
                             error =
                                 "Something went wrong please refresh the page and try again!";
@@ -80,9 +81,11 @@ class Login extends React.Component {
                         switch (e.response.data.error) {
                             case "invalid-email":
                                 error = "Insert a valid email!";
+                                break;
                             case "email-exists":
                                 error =
                                     "The email you filled in is allready in use!";
+                                break;
                             default:
                                 error =
                                     "Something went wrong please refresh the page and try again!";

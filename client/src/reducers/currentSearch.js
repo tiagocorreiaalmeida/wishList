@@ -1,6 +1,5 @@
 const defaultState = {
     search: "",
-    error: "",
     offset: 0,
     games: [],
     searching: false,
@@ -12,10 +11,14 @@ export default (state = defaultState, action) => {
         case "SET_SEARCH":
             return action.search;
         case "REMOVE_SEARCH_GAME":
-            let games = state.games.filter(ele => ele.id !== action.id);
             return {
                 ...state,
-                games
+                games: state.games.filter(({ id }) => id !== action.id)
+            };
+        case "UPDATE_SEARCH":
+            return {
+                ...state,
+                ...action.updates
             };
         default:
             return state;

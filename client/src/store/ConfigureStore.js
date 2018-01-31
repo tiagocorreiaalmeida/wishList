@@ -3,15 +3,17 @@ import thunk from "redux-thunk";
 import wishlistReducer from "../reducers/wishList";
 import currentSearchReducer from "../reducers/currentSearch";
 import authReducer from "../reducers/auth";
+import messagesReducer from "../reducers/messages";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default () => {
     const store = createStore(
         combineReducers({
-            wishlist: wishlistReducer,
+            wishList: wishlistReducer,
             currentSearch: currentSearchReducer,
-            auth: authReducer
+            auth: authReducer,
+            messages: messagesReducer
         }),
         composeEnhancers(applyMiddleware(thunk))
     );

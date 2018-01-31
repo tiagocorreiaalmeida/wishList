@@ -5,7 +5,7 @@ export default (state = [], action) => {
         case "REMOVE_GAME":
             return state.filter(({ id }) => id !== action.id);
         case "SET_WISHLIST":
-            return action.wishList;
+            return [...action.wishList];
         default:
             return state;
     }

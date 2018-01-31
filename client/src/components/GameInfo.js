@@ -1,21 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addGame } from "../actions/wishList";
+import { addGameSync, removeGameSync } from "../actions/wishList";
 import { removeGameFromSearch } from "../actions/currentSearch";
 
 export class GameInfo extends React.Component {
     onClick = () => {
-        this.props.dispatch(
-            addGame({
+        if (!this.props.wishList) {
+            this.props.addGame({
                 id: this.props.game.id,
                 name: this.props.game.name,
                 summary: this.props.game.summary,
                 cover: this.props.game.cover,
                 url: this.props.game.url,
                 rating: this.props.game.rating
-            })
-        );
-        this.props.dispatch(removeGameFromSearch({ id: this.props.game.id }));
+            });
+            this.props.removeFromSearch(this.props.game.id);
+        } else {
+            this.props.removeGames(this.props.game.id);
+        }
     };
     render() {
         return (
@@ -48,7 +50,11 @@ export class GameInfo extends React.Component {
                     </p>
                 </div>
                 <button
-                    className="ion-heart games-list__item__button"
+                    className={
+                        this.props.wishList
+                            ? "ion-trash-a games-list__item__button"
+                            : "ion-heart games-list__item__button"
+                    }
                     onClick={this.onClick}
                 />
             </div>
@@ -56,4 +62,10 @@ export class GameInfo extends React.Component {
     }
 }
 
-export default connect()(GameInfo);
+const mapDispatchToProps = dispatch => ({
+    addGame: game => dispatch(addGameSync(game)),
+    removeFromSearch: id => dispatch(removeGameFromSearch(id)),
+    removeGames: id => dispatch(removeGameSync(id))
+});
+
+export default connect(undefined, mapDispatchToProps)(GameInfo);

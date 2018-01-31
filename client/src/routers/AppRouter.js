@@ -1,15 +1,13 @@
 import React from "react";
-import { Router, Switch, Route } from "react-router-dom";
-import createHistory from "history/createBrowserHistory";
+import { BrowserRouter, Switch } from "react-router-dom";
 import Dashboard from "../components/Dashboard";
 import WishList from "../components/WishList";
 import LoginPage from "../components/Login";
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
-const history = createHistory();
 
 const AppRouter = () => (
-    <Router history={history}>
+    <BrowserRouter>
         <div>
             <Switch>
                 <PublicRoute path="/" component={LoginPage} exact={true} />
@@ -25,7 +23,7 @@ const AppRouter = () => (
                 />
             </Switch>
         </div>
-    </Router>
+    </BrowserRouter>
 );
 
 export default AppRouter;
