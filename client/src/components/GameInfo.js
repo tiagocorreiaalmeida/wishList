@@ -49,14 +49,20 @@ export class GameInfo extends React.Component {
                             : "No description found"}
                     </p>
                 </div>
-                <button
-                    className={
-                        this.props.wishList
-                            ? "ion-trash-a games-list__item__button"
-                            : "ion-heart games-list__item__button"
-                    }
-                    onClick={this.onClick}
-                />
+                {this.props.game.owned ? (
+                    <button className="games-list__item__button games-list__item__button--active">
+                        <i className="ion-checkmark-circled" /> owned
+                    </button>
+                ) : (
+                    <button
+                        className={
+                            this.props.wishList
+                                ? "ion-trash-a games-list__item__button"
+                                : "ion-heart games-list__item__button"
+                        }
+                        onClick={this.onClick}
+                    />
+                )}
             </div>
         );
     }

@@ -119,7 +119,7 @@ export class Dashboard extends React.Component {
                             className="search-input"
                             type="text"
                             onChange={this.onSearchChange}
-                            value={this.props.currentSearchsearch}
+                            value={this.props.currentSearch.search}
                             placeholder="Search by game name"
                             disabled={this.props.currentSearch.searching}
                             onKeyPress={this.onKeyPress}

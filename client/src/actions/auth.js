@@ -16,12 +16,25 @@ export const startLogin = userData => {
     return dispatch => {
         dispatch(login(userData._id));
         dispatch(setWishList(userData.wishList));
+        sessionStorage.setItem("auth", userData._id);
+    };
+};
+
+export const logBack = () => {
+    return async dispatch => {
+        try {
+            let user = await axios.get("/api/user/");
+            dispatch(startLogin(user.data));
+        } catch (e) {
+            return;
+        }
     };
 };
 
 export const startLogout = () => {
     return async dispatch => {
         try {
+            sessionStorage.clear();
             await axios.get("/api/user/logout");
             dispatch(logout());
             dispatch(

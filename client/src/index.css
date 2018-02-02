@@ -1,12 +1,11 @@
-
 :root {
     --color-primary: #db9834;
     --color-primary-2: #d89126;
-    --color-green-light: #70C1B3;
+    --color-green-light: #70c1b3;
     --color-red-light: #f66;
 
-    --text-color:#423e37;
-    --text-color-light:#4b473f;
+    --text-color: #423e37;
+    --text-color-light: #4b473f;
 }
 
 *,
@@ -38,7 +37,7 @@ button {
     cursor: pointer;
 }
 
-.btn{
+.btn {
     padding: 1.2rem 1.8rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -46,28 +45,28 @@ button {
     display: inline-block;
 }
 
-.btn--dark{
-    border:2px solid var(--text-color-light); 
-    color:var(--text-color-light);
-    background-color:#fff;
+.btn--dark {
+    border: 2px solid var(--text-color-light);
+    color: var(--text-color-light);
+    background-color: #fff;
 }
 
-.btn--dark:hover{
-    color:#fff;
+.btn--dark:hover {
+    color: #fff;
     background-color: var(--text-color-light);
 }
 
-.btn--dark__icon{
+.btn--dark__icon {
     display: inline-block;
     padding-left: 1rem;
-    transition: all .3s;
+    transition: all 0.3s;
 }
 
-.btn--dark:hover .btn--dark__icon{
-    transform: translateY(.5rem);
+.btn--dark:hover .btn--dark__icon {
+    transform: translateY(0.5rem);
 }
 
-.search-input{
+.search-input {
     padding: 1rem;
     border: 3px solid var(--color-primary);
     font-size: inherit;
@@ -75,11 +74,11 @@ button {
     border-right: none;
 }
 
-.search-input:focus{
+.search-input:focus {
     background-color: #f6f6f6;
 }
 
-.search-input__button{
+.search-input__button {
     padding: 1rem;
     border: 3px solid var(--color-primary);
     background-color: #fff;
@@ -87,7 +86,7 @@ button {
     color: var(--color-primary);
 }
 
-.search-input__button:hover{
+.search-input__button:hover {
     background-color: var(--color-primary);
     color: #fff;
 }
@@ -107,7 +106,7 @@ button {
     margin-bottom: 4rem;
 }
 
-.text-center{
+.text-center {
     text-align: center;
 }
 
@@ -251,7 +250,8 @@ button {
     transition: all 0.2s;
 }
 
-.games-list__item__button:hover {
+.games-list__item__button:hover,
+.games-list__item__button--active {
     color: #fff;
     background: var(--color-primary);
 }
@@ -517,70 +517,61 @@ button {
     background-color: var(--color-primary-2);
 }
 
-
 /*--------------------------------------------------------------------------------------------*/
 /*--------------------------------------------RESPONSIVE ------------------------------------*/
 
-@media only screen and (max-width:1140px){
-    html{
-        font-size:56,25%;
+@media only screen and (max-width: 1140px) {
+    html {
+        font-size: 56, 25%;
     }
     .wrapper {
         padding: 0 1rem;
     }
 }
 
-@media only screen and (max-width:980px){
-    html{
-        font-size:52%;
+@media only screen and (max-width: 980px) {
+    html {
+        font-size: 52%;
     }
 
-/*------------------------------*/
-/*--------- NAVIGATION ---------*/
-.games-list__item{
-    flex:0 0 31%;
+    /*------------------------------*/
+    /*--------- NAVIGATION ---------*/
+    .games-list__item {
+        flex: 0 0 31%;
+    }
 }
 
+@media only screen and (max-width: 736px) {
+    /*------------------------------*/
+    /*--------- NAVIGATION ---------*/
+    .games-list__item {
+        flex: 0 0 48%;
+    }
 }
 
+@media only screen and (max-width: 480px) {
+    /*------------------------------*/
+    /*--------- LOGIN/REGISTER ---------*/
+    .login__container {
+        width: 95%;
+        margin: 2rem auto;
+    }
 
-@media only screen and (max-width:736px){
+    /*------------------------------*/
+    /*--------- NAVIGATION ---------*/
+    .games-list__item {
+        flex: 0 0 98%;
+    }
 
-/*------------------------------*/
-/*--------- NAVIGATION ---------*/
-.games-list__item{
-    flex:0 0 48%;
+    /*------------------------------*/
+    /*--------- PAGE HEADING ---------*/
+    .heading-primary {
+        font-size: 2rem;
+    }
 }
 
-}    
-
-@media only screen and (max-width:480px){
-    
-/*------------------------------*/
-/*--------- LOGIN/REGISTER ---------*/
-.login__container{
-    width: 95%;
-    margin: 2rem auto;
-}
-
-/*------------------------------*/
-/*--------- NAVIGATION ---------*/
-.games-list__item{
-    flex:0 0 98%;
-}
-
-/*------------------------------*/
-/*--------- PAGE HEADING ---------*/
-.heading-primary{
-    font-size: 2rem;
-}
-
-}
-
-@media only screen and (min-width:1800px){
-    html{
+@media only screen and (min-width: 1800px) {
+    html {
         font-size: 70%;
     }
 }
-
-

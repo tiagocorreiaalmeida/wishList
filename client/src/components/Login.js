@@ -3,9 +3,14 @@ import validator from "validator";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 import { connect } from "react-redux";
-import { startLogin } from "../actions/auth";
+import { startLogin, logBack } from "../actions/auth";
 
 class Login extends React.Component {
+    componentDidMount() {
+        if (sessionStorage.getItem("auth")) {
+            this.props.dispatch(logBack());
+        }
+    }
     state = {
         login: true,
         email: "",

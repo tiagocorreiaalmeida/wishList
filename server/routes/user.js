@@ -8,6 +8,15 @@ import auth from "../utils/auth";
 
 const router = express.Router();
 
+router.get("/", auth, async (req, res) => {
+    try {
+        let user = await User.findById(req.user.id);
+        res.send(user);
+    } catch (e) {
+        res.error(500, "unexpected-error", e);
+    }
+});
+
 router.post("/new", auth, async (req, res) => {
     let newGame = Object.assign({}, req.body);
     let game;
@@ -16,7 +25,6 @@ router.post("/new", auth, async (req, res) => {
             _id: req.user.id,
             "wishList.id": newGame.id
         });
-        console.log(alreadyOwnsGame);
         if (alreadyOwnsGame) return res.error(409, "game-already-owned");
         await User.findByIdAndUpdate(
             req.user.id,

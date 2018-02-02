@@ -8,12 +8,8 @@ export default async (req, res, next) => {
             let time = moment().format("DD-MM-YYYY HH:mm:ss");
             let log = `${time}: errorMessage - ${
                 internMessage.message
-                }, name - ${internMessage.name} `;
-            fs.appendFile("server.log", log + "\n", err => {
-                if (err) {
-                    console.log(err);
-                }
-            });
+            }, name - ${internMessage.name} `;
+            fs.appendFile("server.log", log + "\n", err => {});
         }
         res.status(status).send(message);
     };

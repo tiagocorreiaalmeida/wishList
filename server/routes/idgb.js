@@ -17,7 +17,7 @@ router.get("", auth, (req, res) => {
             let response = await axios.get(
                 `${
                     process.env.REQUEST_URL
-                }=${search}&fields=*&rating:desc&limit=4&offset=${offset}`,
+                }=${search}*&fields=*&rating:desc&limit=4&offset=${offset}`,
                 {
                     headers: {
                         "user-key": process.env.IDGB_KEY,
@@ -30,9 +30,16 @@ router.get("", auth, (req, res) => {
                 wishList: 1
             });
             if (userGamesList.wishList.length > 0 && response.data.length > 0) {
-                responseData = response.data.filter(ele =>
-                    userGamesList.wishList.every(value => value.id !== ele.id)
-                );
+                responseData = response.data.map(ele => {
+                    if (
+                        !userGamesList.wishList.every(
+                            value => value.id !== ele.id
+                        )
+                    ) {
+                        return Object.assign({}, ele, { owned: true });
+                    }
+                    return ele;
+                });
             } else {
                 responseData = [...response.data];
             }
@@ -53,7 +60,8 @@ router.get("", auth, (req, res) => {
                           ele.cover.cloudinary_id
                       }.jpg`
                     : "",
-                rating: ele.total_rating ? ele.total_rating.toFixed(1) : "N/A"
+                rating: ele.total_rating ? ele.total_rating.toFixed(1) : "N/A",
+                owned: ele.owned
             }));
         } catch (e) {
             res.error(500, "unexpected-error", e);
