@@ -31,9 +31,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, "/../client/build")));
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname + "/../client/build/index.html"));
-});
 
 app.options("*", cors());
 
@@ -41,5 +38,9 @@ app.use(errorHandler);
 
 app.use("/api/idgb", idgb);
 app.use("/api/user", user);
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname + "/../client/build/index.html"));
+});
 
 app.listen(port, () => console.log(`Running on port ${port}`));
